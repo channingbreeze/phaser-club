@@ -1,4 +1,4 @@
-Nodeclub
+Phaser Club
 =
 
 [![build status][travis-image]][travis-url]
