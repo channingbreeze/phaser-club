@@ -1,0 +1,41 @@
+<%- partial('../sidebar') %>
+
+<div id='content'>
+  <div class='panel'>
+    <div class='header'>
+      <ul class='breadcrumb'>
+        <li><a href='/'>主页</a><span class='divider'>/</span></li>
+        <li class='active'>关于</li>
+      </ul>
+    </div>
+    <div class='inner topic'>
+      <div class="topic_content">
+        <%- markdown(multiline(function () {
+/*
+### 关于
+Phaser Club 为国内最大最具影响力的 Phaser 开源技术社区，致力于 Phaser 的技术研究。
+
+Phaser Club 由一批热爱 Phaser 技术的工程师发起，目前已经吸引了互联网各个公司的专业技术人员加入，我们非常欢迎更多对 Phaser 感兴趣的朋友。
+
+Phaser Club 的 SLA 保证是，一个9，即 90.000000%。
+
+社区目前由 [@channingbreeze](http://club.phaser-china.com/user/channingbreeze) 在维护，有问题请联系：[https://github.com/channingbreeze](https://github.com/channingbreeze)
+
+请关注我们的官方网站，Phaser小站：https://www.phaser-china.com
+
+### Phaser小站
+
+Phaser小站由 [@channingbreeze](http://club.phaser-china.com/user/channingbreeze) 开发维护。
+
+网站地址： https://www.phaser-china.com 。
+
+欢迎扫描页面右侧二维码关注我们的官方微信公众号。
+
+另，可加入我们的QQ群：519413640 ，群里的老司机带你飞。
+
+*/
+        })) %>
+      </div>
+    </div>
+  </div>
+</div>
