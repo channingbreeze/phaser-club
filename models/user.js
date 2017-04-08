@@ -71,7 +71,7 @@ UserSchema.virtual('isAdvanced').get(function () {
 });
 
 UserSchema.index({loginname: 1}, {unique: true});
-UserSchema.index({email: 1}, {unique: true});
+UserSchema.index({email: 1}, {unique: true, sparse: true});
 UserSchema.index({score: -1});
 UserSchema.index({githubId: 1});
 UserSchema.index({accessToken: 1});
