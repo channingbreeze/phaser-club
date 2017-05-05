@@ -42,7 +42,6 @@ var logger = require('./common/logger');
 var helmet = require('helmet');
 var bytes = require('bytes')
 
-
 // 静态文件目录
 var staticDir = path.join(__dirname, 'public');
 // assets
@@ -172,7 +171,7 @@ if (config.debug) {
 
 if (!module.parent) {
   app.listen(config.port, function () {
-    logger.info('NodeClub listening on port', config.port);
+    logger.info('Phaser Club listening on port', config.port);
     logger.info('God bless love....');
     logger.info('You can debug your app with http://' + config.hostname + ':' + config.port);
     logger.info('');
