@@ -3,7 +3,6 @@ $(document).ready(function () {
   var $backtotop = $('#backtotop');
   var top = windowHeight - $backtotop.height() - 200;
 
-
   function moveBacktotop() {
     $backtotop.css({ top: top, right: 0});
   }

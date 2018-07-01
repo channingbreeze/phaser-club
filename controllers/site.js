@@ -17,11 +17,16 @@ var cache        = require('../common/cache');
 var xmlbuilder   = require('xmlbuilder');
 var renderHelper = require('../common/render_helper');
 var _            = require('lodash');
+var sanitizer    = require('sanitizer');
 
 exports.index = function (req, res, next) {
   var page = parseInt(req.query.page, 10) || 1;
   page = page > 0 ? page : 1;
   var tab = req.query.tab || 'all';
+
+  var keyword = req.query.q;
+  if(keyword == null) keyword = "";
+  keyword = sanitizer.sanitize(keyword).trim();
 
   var proxy = new eventproxy();
   proxy.fail(next);
@@ -36,6 +41,10 @@ exports.index = function (req, res, next) {
     } else {
       query.tab = tab;
     }
+  }
+
+  if(keyword != "") {
+    query = {title: eval("/" + keyword + "/i")};
   }
 
   var limit = config.list_topic_count;
