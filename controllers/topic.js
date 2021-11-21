@@ -151,6 +151,33 @@ exports.put = function (req, res, next) {
     });
   }
 
+  // 黑产验证
+  var darkError;
+  for(var i = 0; i < config.dark.titleLimits.length; i++) {
+    if (title.indexOf(config.dark.titleLimits[i]) != -1) {
+      darkError = "黑产给老子滚开。";
+      break;
+    }
+  }
+  if (!darkError) {
+    for(var i = 0; i < config.dark.bodyLimits.length; i++) {
+      if (content.indexOf(config.dark.bodyLimits[i]) != -1) {
+        darkError = "黑产给老子滚开。";
+      }
+    }
+  }
+  // END 黑产验证
+
+  if (darkError) {
+    res.status(422);
+    return res.render('topic/edit', {
+      edit_error: darkError,
+      title: title,
+      content: content,
+      tabs: config.tabs
+    });
+  }
+
   Topic.newAndSave(title, content, tab, req.session.user._id, function (err, topic) {
     if (err) {
       return next(err);
