@@ -163,6 +163,7 @@ exports.put = function (req, res, next) {
     for(var i = 0; i < config.dark.bodyLimits.length; i++) {
       if (content.indexOf(config.dark.bodyLimits[i]) != -1) {
         darkError = "黑产给老子滚开。";
+        break;
       }
     }
   }
