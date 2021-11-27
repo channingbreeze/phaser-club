@@ -21,6 +21,28 @@ exports.add = function (req, res, next) {
     return res.renderError('回复内容不能为空!', 422);
   }
 
+  // 黑产验证
+  var darkError;
+  for(var i = 0; i < config.dark.titleLimits.length; i++) {
+    if (content.indexOf(config.dark.titleLimits[i]) != -1) {
+      darkError = "黑产给老子滚开。";
+      break;
+    }
+  }
+  if (!darkError) {
+    for(var i = 0; i < config.dark.bodyLimits.length; i++) {
+      if (content.indexOf(config.dark.bodyLimits[i]) != -1) {
+        darkError = "黑产给老子滚开。";
+        break;
+      }
+    }
+  }
+  // END 黑产验证
+
+  if (darkError) {
+    return res.renderError(darkError, 422);
+  }
+
   var ep = EventProxy.create();
   ep.fail(next);
 
@@ -138,6 +160,29 @@ exports.update = function (req, res, next) {
     if (String(reply.author_id) === req.session.user._id.toString() || req.session.user.is_admin) {
 
       if (content.trim().length > 0) {
+
+        // 黑产验证
+        var darkError;
+        for(var i = 0; i < config.dark.titleLimits.length; i++) {
+          if (content.indexOf(config.dark.titleLimits[i]) != -1) {
+            darkError = "黑产给老子滚开。";
+            break;
+          }
+        }
+        if (!darkError) {
+          for(var i = 0; i < config.dark.bodyLimits.length; i++) {
+            if (content.indexOf(config.dark.bodyLimits[i]) != -1) {
+              darkError = "黑产给老子滚开。";
+              break;
+            }
+          }
+        }
+        // END 黑产验证
+
+        if (darkError) {
+          return res.renderError(darkError, 422);
+        }
+
         reply.content = content;
         reply.update_at = new Date();
         reply.save(function (err) {

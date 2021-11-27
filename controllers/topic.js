@@ -265,6 +265,34 @@ exports.update = function (req, res, next) {
         });
       }
 
+      // 黑产验证
+      var darkError;
+      for(var i = 0; i < config.dark.titleLimits.length; i++) {
+        if (title.indexOf(config.dark.titleLimits[i]) != -1) {
+          darkError = "黑产给老子滚开。";
+          break;
+        }
+      }
+      if (!darkError) {
+        for(var i = 0; i < config.dark.bodyLimits.length; i++) {
+          if (content.indexOf(config.dark.bodyLimits[i]) != -1) {
+            darkError = "黑产给老子滚开。";
+            break;
+          }
+        }
+      }
+      // END 黑产验证
+
+      if (darkError) {
+        return res.render('topic/edit', {
+          action: 'edit',
+          edit_error: darkError,
+          topic_id: topic._id,
+          content: content,
+          tabs: config.tabs
+        });
+      }
+
       //保存话题
       topic.title     = title;
       topic.content   = content;
