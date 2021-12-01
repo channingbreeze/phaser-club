@@ -123,6 +123,8 @@ exports.put = function (req, res, next) {
   var tab     = validator.trim(req.body.tab);
   var content = validator.trim(req.body.t_content);
 
+  return res.renderError('没有权限!', 422);
+
   // 得到所有的 tab, e.g. ['ask', 'share', ..]
   var allTabs = config.tabs.map(function (tPair) {
     return tPair[0];
@@ -238,6 +240,8 @@ exports.update = function (req, res, next) {
       res.render404('此话题不存在或已被删除。');
       return;
     }
+
+    return res.renderError('没有权限!', 422);
 
     if (topic.author_id.equals(req.session.user._id) || req.session.user.is_admin) {
       title   = validator.trim(title);

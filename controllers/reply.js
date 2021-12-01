@@ -16,6 +16,8 @@ exports.add = function (req, res, next) {
   var topic_id = req.params.topic_id;
   var reply_id = req.body.reply_id;
 
+  return res.renderError('没有权限!', 422);
+
   var str = validator.trim(String(content));
   if (str === '') {
     return res.renderError('回复内容不能为空!', 422);
@@ -156,6 +158,8 @@ exports.update = function (req, res, next) {
     if (!reply) {
       return res.render404('此回复不存在或已被删除。');
     }
+
+    return res.renderError('没有权限!', 422);
 
     if (String(reply.author_id) === req.session.user._id.toString() || req.session.user.is_admin) {
 
